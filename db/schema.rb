@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180809075213) do
+ActiveRecord::Schema.define(version: 20180823023351) do
 
   create_table "friendships", force: :cascade do |t|
     t.integer "user_id"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20180809075213) do
     t.decimal "last_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "user_stock_histories", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "stock_id"
+    t.datetime "date"
+    t.decimal "last_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stock_id"], name: "index_user_stock_histories_on_stock_id"
+    t.index ["user_id"], name: "index_user_stock_histories_on_user_id"
   end
 
   create_table "user_stocks", force: :cascade do |t|

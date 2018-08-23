@@ -15,6 +15,14 @@ class UserStocksController < ApplicationController
   end
   
   def destroy
+    #debugger
+    @usr_id = session[:usr_id]
+    @stk_id = session[:stk_id]
+    @user = User.find(@usr_id)
+    @stock = Stock.find(@stk_id)
+    @user_stock_histories = UserStockHistory.where(user: @user, stock: @stock)
+    @user_stock_histories.destroy_all
+    
     stock = Stock.find(params[:id])
     @user_stock = UserStock.where(user_id: current_user.id, stock_id: stock.id).first
     @user_stock.destroy

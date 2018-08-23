@@ -20,6 +20,10 @@
                       method: :delete,
                       data: {confirm: "Are you sure?"}, 
                       class: "btn btn-xs btn-danger" %>
+              <%= link_to "Add to stock history", user_stock_histories_path(id: user_stock),
+                      method: :post,
+                      data: {confirm: "Are you sure?"}, 
+                      class: "btn btn-xs btn-success" %>
           </td>
         <% end %>
       </tr>

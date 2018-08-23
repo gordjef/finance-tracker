@@ -1,0 +1,57 @@
+<h1>Stock History</h1>
+
+<dl class="dl-horizontal"> 
+  <dt><strong>Company</strong></dt> 
+  <dd><%= session[:stock_name] %></dd> 
+  <dt><strong>Symbol</strong></dt> 
+  <dd><%= session[:stock_ticker] %></dd> 
+  <dt><strong>Start Price</strong></dt> 
+  <% start_price = @user_stock_histories[0].last_price %>
+  <dd><%= start_price %></dd> 
+  <dt><strong>Date Acquired</strong></dt> 
+  <dd><%= @user_stock_histories[0].date.strftime('%c') %></dd> 
+</dl> 
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Date/Time</th>
+      <th>Current Price</th>
+      <th>Start Price Diff</th>
+      <% if @user.id == current_user.id %>
+        <th>Actions</th>
+      <% end %>
+    </tr>
+
+  </thead>
+  <tbody>
+    <% @user_stock_histories.each_with_index do |user_stock, index| %> 
+      <% if index != 0 %>
+        <tr>
+          <td><%="#{index}." %></td>
+          <td><%= user_stock.date.strftime('%c') %></td>
+          <td><%= user_stock.last_price %></td>
+          <% diff_price = user_stock.last_price - start_price %>
+          <td><%= diff_price > 0 ? "+#{diff_price}" : diff_price < 0 ? "#{diff_price}" : "" %></td>
+          
+          <% if @user.id == current_user.id %>
+            <td><%= link_to "Delete history", user_stock_history_path(user_stock), 
+                        method: :delete,
+                        data: {confirm: "Are you sure?"}, 
+                        class: "btn btn-xs btn-danger" %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+<%= link_to "Back", my_portfolio_path, class: "btn btn-primary" %>

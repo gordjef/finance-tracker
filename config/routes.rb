@@ -12,4 +12,9 @@ Rails.application.routes.draw do
   resources :user_stocks, only: [:create, :destroy]
   resources :users, only: [:show]
   resources :friendships
+  
+  #jeffadd
+  resources :user_stock_histories, only: [:create, :destroy]
+  #post '/my_stock_histories/:id', to: 'user_stock_histories#show'
+  get 'user_stock_histories', to: 'user_stock_histories#show'
 end
